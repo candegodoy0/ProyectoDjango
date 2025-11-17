@@ -1,0 +1,21 @@
+#Python
+_pycache_/
+*.pyc
+*.pyo
+.pyd
+
+#Entornos
+env/
+venv/
+
+# Archivos de Django
+db.sqlite3
+
+#Static/Media
+/staticfiles/
+/media/
+
+# Archivos de empaquetado
+.egg-info/
+build/
+dist/

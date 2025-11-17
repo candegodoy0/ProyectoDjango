@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}  <input type="hidden" name="next" value="{{ next }}" />
+                <button type="submit" class="btn btn-primary mt-3">Iniciar Sesión</button>
+            </form>
+            </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'landing/js/eliminar_consulta.js' %}"></script>
+{% endblock %}
+
+{% block title %}Listado de Consultas{% endblock %}
+
+{% block content %}
+<div class="container mt-5 listado-container">
+  <h1 class="main-subtitle-form mb-4" style="color: var(--azul-oscuro);">Listado de Consultas Realizadas</h1>
+  <p class="text-muted">Total de registros: <span class="badge text-bg-secondary">{{ consultas|length }}</span></p>
+
+  {% csrf_token %}
+
+  {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+  {% elif consultas %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered listado-table">
+          <thead class="listado-thead"> <tr>
+              <th>ID</th>
+              <th>Fecha de Creación</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Perfil Obtenido</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for consulta in consultas %}
+            <tr id="consulta-{{ consulta.id }}">
+              <td>{{ consulta.id }}</td>
+              <td>{{ consulta.fecha_creacion|date:"Y-m-d H:i" }}</td>
+              <td>{{ consulta.nombre }}</td>
+              <td>{{ consulta.correo }}</td>
+              <td><span class="badge perfil-badge">{{ consulta.perfil_obtenido }}</span></td>
+
+              <td>
+                <a href="{% url 'editar_consulta' consulta.id %}" class="btn btn-sm btn-warning btn-action">Editar</a>
+
+                <button type="button"
+                        class="btn btn-sm btn-danger btn-eliminar btn-action"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalConfirmarEliminar"
+                        data-id="{{ consulta.id }}"
+                        data-nombre="{{ consulta.nombre }}">
+                    Eliminar
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle me-2"></i> No se encontraron consultas registradas en la base de datos.
+    </div>
+  {% endif %}
+
+  <a href="{% url 'index' %}" class="btn btn-secondary btn-return mt-3">Volver al Test</a>
+</div>
+
+
+<div class="modal fade" id="modalConfirmarEliminar" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white modal-danger-header">
+        <h5 class="modal-title" id="modalLabel"><i class="fas fa-exclamation-triangle me-2"></i> Confirmar Eliminación</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar permanentemente el registro de <strong><span id="nombre-a-eliminar"></span></strong>? Esta acción no se puede deshacer.</p>
+        <input type="hidden" id="consulta-id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar Permanentemente</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

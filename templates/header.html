@@ -1,0 +1,119 @@
+{% load static %}
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <div class="logo">
+        <img src="{% static 'landing/images/logo_ong.png' %}" alt="Logo Vocari">
+      <span class="logo-text">Vocari</span>
+    </div>
+
+    <div class="d-none d-lg-flex align-items-center flex-grow-1 justify-content-center">
+
+        <nav class="main-nav">
+          <a href="{% url 'index' %}">Inicio</a>
+          <a href="{% url 'sobre_nosotros' %}">Sobre nosotros</a>
+          <a href="{% url 'contacto' %}">Hablemos</a>
+        </nav>
+    </div>
+
+    <div class="d-none d-lg-block">
+        <div class="dropdown">
+            <button class="btn btn-transparent dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user-circle fa-lg me-1"></i>
+                {% if user.is_authenticated %}
+                    {{ user.username }}
+                {% else %}
+                    Mi Cuenta
+                {% endif %}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                {% if user.is_authenticated %}
+                    <li><h6 class="dropdown-header">Hola, {{ user.username }}</h6></li>
+                    {% if user.is_staff %}
+                        <li><a class="dropdown-item" href="{% url 'listado_consultas' %}">Listado de Consultas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% endif %}
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmarLogoutModal">
+                            Cerrar Sesión
+                        </button>
+                    </li>
+                {% else %}
+                      <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                    <li><a class="dropdown-item" href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" style="color: var(--blanco);">
+        <i class="fas fa-bars fa-lg"></i>
+    </button>
+
+  </div>
+</header>
+
+
+<div class="offcanvas offcanvas-start"
+     tabindex="-1"
+     id="offcanvasNav"
+     aria-labelledby="offcanvasNavLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title logo-text" id="offcanvasNavLabel">Vocari</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <nav class="d-flex flex-column mb-4">
+        <a class="py-2" href="{% url 'index' %}">Inicio</a>
+        <a class="py-2" href="{% url 'sobre_nosotros' %}">Sobre nosotros</a>
+        <a class="py-2" href="{% url 'contacto' %}">Hablemos</a>
+    </nav>
+
+    <hr>
+
+    <div class="mt-4">
+        <h6 class="mb-3 dropdown-header">Mi Cuenta</h6>
+
+        {% if user.is_authenticated %}
+            <h5 class="text-white mb-3">Hola, {{ user.username }}</h5>
+
+            {% if user.is_staff %}
+                <a class="btn btn-outline-light w-100 mb-2" href="{% url 'listado_consultas' %}">Listado de Consultas</a>
+                <a class="btn btn-outline-light w-100 mb-2" href="{% url 'dashboard' %}">Dashboard</a>
+            {% endif %}
+
+            <button class="btn btn-danger w-100" type="button" data-bs-toggle="modal" data-bs-target="#confirmarLogoutModal" data-bs-dismiss="offcanvas">
+                Cerrar Sesión
+            </button>
+        {% else %}
+            <a class="btn btn-success w-100 mb-2" href="{% url 'login' %}">Iniciar Sesión</a>
+            <a class="btn btn-secondary w-100" href="{% url 'registro' %}">Registrarse</a>
+        {% endif %}
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="confirmarLogoutModal" tabindex="-1" aria-labelledby="confirmarLogoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarLogoutModalLabel">Confirmar Cierre de Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres cerrar tu sesión?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

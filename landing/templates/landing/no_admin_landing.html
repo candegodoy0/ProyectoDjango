@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Acceso Restringido{% endblock %}
+
+{% block content %}
+<div class="container mt-5 no-admin-page">
+    <i class="fas fa-lock fa-4x mb-4" style="color: var(--verde-lima);"></i>
+    <h1>Área de Gestión Restringida</h1>
+    <p class="lead">Hola, <strong>{{ user.username }}</strong>. Has iniciado sesión correctamente.</p>
+    <p>El acceso al panel de administración (Dashboard y Listado de Consultas) está restringido al personal del sistema.</p>
+
+    <div class="mt-4">
+        <a href="{% url 'index' %}" class="btn-regreso">Volver al Test Vocacional</a>
+    </div>
+    
+    <div class="mt-5">
+         <form action="{% url 'logout' %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger">Cerrar Sesión</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

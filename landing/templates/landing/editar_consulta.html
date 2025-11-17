@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'landing/js/scripts_edicion.js' %}"></script>
+{% endblock %}
+
+{% block title %}Editar Consulta #{{ consulta.id }}{% endblock %}
+
+{% block content %}
+<section id="edicion" class="container form-section mt-5">
+  <div class="bloques-form">
+    <div class="bloque bloque-respondé">
+      <h2>Editar Registro #{{ consulta.id }}</h2>
+      <p>Perfil actual: <strong>{{ consulta.perfil_obtenido }}</strong></p>
+    </div>
+
+    <form method="post" class="formulario-principal" id="formulario-edicion">
+      {% csrf_token %}
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.nombre.id_for_label }}" class="form-label">{{ form.nombre.label }}</label>
+          {{ form.nombre }}
+          {% for error in form.nombre.errors %}<p class="text-danger">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.edad.id_for_label }}" class="form-label">{{ form.edad.label }}</label>
+          {{ form.edad }}
+          {% for error in form.edad.errors %}<p class="text-danger">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.correo.id_for_label }}" class="form-label">{{ form.correo.label }}</label>
+          {{ form.correo }}
+          {% for error in form.correo.errors %}<p class="text-danger">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.nivel.id_for_label }}" class="form-label">{{ form.nivel.label }}</label>
+          {{ form.nivel }}
+          {% for error in form.nivel.errors %}<p class="text-danger">{{ error }}</p>{% endfor %}
+        </div>
+      </div>
+
+      <h4 class="mt-4 mb-3">Respuestas del Test</h4>
+      <div class="preguntas row">
+
+        {% for field in form %}
+          {% if field.name|slice:":1" == "q" %}
+            <div class="col-md-6 mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<p class="text-danger">{{ error }}</p>{% endfor %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+
+      <button type="submit" class="btn btn-success btn-enviar mt-4">GUARDAR CAMBIOS</button>
+      <a href="{% url 'listado_consultas' %}" class="btn btn-secondary mt-4">Cancelar y Volver</a>
+    </form>
+  </div>
+</section>
+{% endblock %}

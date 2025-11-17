@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'landing/js/scripts.js' %}"></script>
+{% endblock %}
+
+{% block title %}Inicio - Simulador Vocacional{% endblock %}
+
+{% block content %}
+<section id="portada" class="landing-header">
+  <div class="container">
+    <h1>Descubrí tu <span class="highlight">vocación</span>, animate a elegir tu <span class="highlight">camino</span></h1>
+  </div>
+</section>
+
+<div class="container mt-3" id="alert-container">
+</div>
+
+<section id="formulario" class="form-section">
+  <div class="bloques-form">
+    <div class="bloque bloque-respondé"><h2>Respondé</h2></div>
+
+    <form method="post" class="formulario-principal" id="formulario-principal">
+      {% csrf_token %}
+
+      <div class="campo">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre }}
+        {% for error in form.nombre.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="campo">
+        {{ form.edad.label_tag }}
+        {{ form.edad }}
+        {% for error in form.edad.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="campo">
+        {{ form.correo.label_tag }}
+        {{ form.correo }}
+        {% for error in form.correo.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="campo">
+        {{ form.nivel.label_tag }}
+        {{ form.nivel }}
+        {% for error in form.nivel.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="preguntas">
+
+        <div class="pregunta">
+            {{ form.q1.label_tag }}{{ form.q1 }}
+            {% for error in form.q1.errors %}<p class="error">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="pregunta">
+            {{ form.q2.label_tag }}{{ form.q2 }}
+            {% for error in form.q2.errors %}<p class="error">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="pregunta">
+            {{ form.q3.label_tag }}{{ form.q3 }}
+            {% for error in form.q3.errors %}<p class="error">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="pregunta">
+            {{ form.q4.label_tag }}{{ form.q4 }}
+            {% for error in form.q4.errors %}<p class="error">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="pregunta">
+            {{ form.q5.label_tag }}{{ form.q5 }}
+            {% for error in form.q5.errors %}<p class="error">{{ error }}</p>{% endfor %}
+        </div>
+      </div>
+
+      <button type="submit" class="btn-enviar">ENVIAR</button>
+    </form>
+  </div>
+</section>
+
+<section id="resultado" class="resultado-section">
+  <div class="bloques-resultados">
+
+    <div class="resultado-item">
+      <div class="bloque bloque-descubri"><h2>Descubrí</h2></div>
+      <div class="resultado-contenido">
+          {% if perfil %}
+            <p><strong>Tu perfil profesional es: {{ perfil|upper }}</strong></p>
+            <p>{{ descripcion }}</p>
+          {% else %}
+            <p>Acá se mostrará el perfil obtenido y una breve descripción del mismo.</p>
+          {% endif %}
+      </div>
+    </div>
+
+    <div class="resultado-item">
+      <div class="bloque bloque-decidi"><h2>Decidí</h2></div>
+      <div class="resultado-contenido">
+        {% if cursos %}
+          <h3>Los cursos que te recomendamos son:</h3>
+          <form method="post" action="{% url 'inscribir' %}">
+            {% csrf_token %}
+            <input type="hidden" name="nombre" value="{{ nombre }}">
+            <input type="hidden" name="correo" value="{{ correo }}">
+
+            <div class="lista-cursos">
+              {% for curso in cursos %}
+                <label class="curso-item">
+                  <input type="checkbox" name="cursos" value="{{ curso }}">
+                  {{ curso }}
+                </label><br>
+              {% endfor %}
+            </div>
+            <button type="submit" class="btn-inscribir">INSCRIBIRME</button>
+          </form>
+
+        {% else %}
+          <p>Primero completá y enviá el cuestionario para ver recomendaciones.</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

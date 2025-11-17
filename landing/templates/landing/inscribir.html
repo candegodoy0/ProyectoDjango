@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inscripción{% endblock %}
+
+{% block content %}
+<section class="container">
+  <h2>Inscripción realizada</h2>
+
+  {% if cursos %}
+    <p>Te inscribiste en:</p>
+    <ul>
+      {% for curso in cursos %}
+        <li>{{ curso }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No seleccionaste ningún curso.</p>
+  {% endif %}
+
+  {% if nombre %}
+    <p>Nombre: {{ nombre }}</p>
+  {% endif %}
+
+  {% if correo %}
+    <p>Correo: {{ correo }}</p>
+  {% endif %}
+
+  <a href="{% url 'index' %}">Volver al inicio</a>
+</section>
+{% endblock %}

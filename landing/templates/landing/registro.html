@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card registro-card mx-auto">
+        <div class="card-header bg-success registro-header text-white">
+            <h2>Crear Cuenta de Acceso</h2>
+        </div>
+        <div class="card-body registro-card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="campo mb-3">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn-enviar mt-3">Registrarse</button>
+            </form>
+            <p class="mt-4 text-center">
+                ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="link-vocari">Inicia Sesión aquí</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

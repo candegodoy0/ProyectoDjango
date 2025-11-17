@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard de Gestión{% endblock %}
+
+{% block content %}
+<div class="container mt-5 dashboard-container">
+    <h1 class="main-subtitle-form mb-4">Panel de Administración Vocari</h1>
+    <div class="welcome-banner bg-info p-4 mb-5">
+        <h2>👋 ¡Hola, {{ user.username }}!</h2>
+        <p>Has accedido al área de gestión. Aquí puedes monitorear y administrar las consultas recibidas.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card dashboard-card card-primary">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-clipboard-list me-2"></i> Gestión de Consultas</h5>
+                    <p class="card-text">Revisa, edita y elimina los resultados del test vocacional enviados por los usuarios.</p>
+                    <a href="{% url 'listado_consultas' %}" class="btn btn-vocari-admin mt-2">Ver Listado Completo</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card dashboard-card card-secondary">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-tools me-2"></i> Herramientas del Sistema</h5>
+                    <p class="card-text">Accede al panel de administración avanzado para gestionar usuarios, modelos y configuraciones.</p>
+                    <a href="/admin/" class="btn btn-vocari-admin mt-2" target="_blank">Ir al Admin de Django</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mt-4 text-center">
+             <form action="{% url 'logout' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión de Gestión</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

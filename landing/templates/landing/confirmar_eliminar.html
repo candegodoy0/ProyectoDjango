@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Confirmar Eliminación{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">⚠ Confirmar Eliminación</h4>
+        <p>¿Estás seguro de que deseas eliminar la consulta de *{{ consulta.nombre }}* (ID: {{ consulta.id }})?</p>
+        <hr>
+        
+        <form method="post" action="{% url 'eliminar_consulta' consulta.id %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger me-2">Sí, Eliminar Definitivamente</button>
+        </form>
+        
+        <a href="{% url 'listado_consultas' %}" class="btn btn-secondary">Cancelar y Volver al Listado</a>
+    </div>
+</div>
+{% endblock %}
