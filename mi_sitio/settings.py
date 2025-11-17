@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/#database
 """
 
 from pathlib import Path
-import osg
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zj!0%rw92+bg&+jy3-w%$^6ly-fx=h^rw)$64pe$d6dor@!&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['proyectodjango-z7f4.onrender.com']
 
 
 # Application definition
