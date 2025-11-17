@@ -3,9 +3,8 @@
 **Carrera:** Tecnicatura Universitaria en Programación de Sistemas  
 **Materia:** Programación Web II  
 **Cursada:** 2º Cuatrimestre 2025  
-**Profesor:** Analia, Villegas
-**Alumna:**  Candela Godoy — Matrícula 145549  
-
+**Profesor:** Analia, Villegas  
+**Alumna:** Candela Godoy — Matrícula 145549  
 
 ## [Proyecto desplegado en Render](https://proyectodjango-z7f4.onrender.com)
 
