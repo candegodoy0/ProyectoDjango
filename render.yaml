@@ -8,10 +8,11 @@ services:
       python manage.py migrate
       python manage.py collectstatic --noinput
 
-    startCommand: "gunicorn mi_sitio.wsgi:application"
+    startCommand: "gunicorn --workers 1 mi_sitio.wsgi:application"
 
-    envvars:
+    envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: mi_sitio.settings
       - key: DATABASE_URL
         value: postgresql://proyectodjango_ojaa_user:i2laqK4UoZokda7LRTmQJw7NAdbLnHub@dpg-d4dsag8dl3ps73dj14jg-a.oregon-postgres.render.com/proyectodjango_ojaa
+
