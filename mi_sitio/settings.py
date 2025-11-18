@@ -76,15 +76,15 @@ WSGI_APPLICATION = 'mi_sitio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'proyectoDjango',
-        'USER': 'postgres',
-        'PASSWORD': 'Cande1937',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+'default': dj_database_url.config(
+    default='postgresql://proyectodjango_ojaa_user:i2laqK4UoZokda7LRTmQJw7NAdbLnHub@dpg-d4dsag8dl3ps73dj14jg-a.oregon-postgres.render.com/proyectodjango_ojaa',
+    conn_max_age=600,
+ssl_require=True
+)
 }
 
 
