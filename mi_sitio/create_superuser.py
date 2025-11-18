@@ -6,9 +6,9 @@ try:
 
     if not User.objects.filter(username="postgres").exists():
         User.objects.create_superuser(
-            username="postgres",
-            email="admin@gmail.com",
-            password="Django"
+            username="candegodoy",
+            email="godoycandela65@gmail.com",
+            password="Cande1937"
         )
         print("Superusuario creado")
     else:
