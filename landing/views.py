@@ -215,7 +215,7 @@ def index(request):
             cursos_con_traduccion = []
             cursos_unicos = []
 
-            traduccion_descripcion = consumir_traduccion_drf(descripcion)
+            traduccion_descripcion = get_translation(descripcion)
 
             for p in perfil.split(", "):
                 for c in CURSOS.get(p, []):
@@ -223,7 +223,7 @@ def index(request):
                         seen.add(c)
                         cursos_unicos.append(c)
 
-                        traduccion_curso = consumir_traduccion_drf(c)
+                        traduccion_curso = get_translation(c)
 
                         cursos_con_traduccion.append({
                             'nombre': c,
