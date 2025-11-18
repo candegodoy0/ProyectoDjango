@@ -131,21 +131,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.lalupitacontenidos.site'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_HOST = 'c2280296.ferozo.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'candela.godoy@lalupitacontenidos.site'
 EMAIL_HOST_PASSWORD = 'Cande2025/'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_TIMEOUT = 90
-
-import certifi
-import ssl
-SSL_CERT_FILE = certifi.where()
-ssl._create_default_https_context = ssl._create_unverified_context
 
 
 LOGIN_REDIRECT_URL = 'login_redirect_view'
