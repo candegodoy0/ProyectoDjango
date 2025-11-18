@@ -132,22 +132,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'c2280296.ferozo.com'
+EMAIL_HOST = 'mail.lalupitacontenidos.site'
 EMAIL_PORT = 587
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'candela.godoy@lalupitacontenidos.site'
 EMAIL_HOST_PASSWORD = 'Cande2025/'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_TIMEOUT = 90
 
 import certifi
 import ssl
-
 SSL_CERT_FILE = certifi.where()
 ssl._create_default_https_context = ssl._create_unverified_context
 
